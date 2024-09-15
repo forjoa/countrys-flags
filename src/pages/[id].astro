@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+export const prerender = false
+
+const { id } = Astro.params
+
+let country: Country | null = null
+
+try {
+  const res = await fetch(`https://restcountries.com/v3.1/alpha/${id}`)
+  const data = await res.json()
+  country = data[0]
+} catch (error) {
+  console.error('Error fetching country:', error)
+}
+---
+
+<Layout title='Country'>
+  <main
+    class='w-[800px] max-w-4xl flex flex-col gap-6 m-auto bg-skin-fill text-skin-base transition-colors duration-200'
+  >
+    <nav
+      class='w-[800px] max-w-4xl flex justify-between items-center m-auto bg-skin-fill text-skin-base transition-colors duration-200'
+    >
+      <a
+        href='/'
+        class='border border-zinc-400 rounded-lg py-2 px-6 flex items-center gap-2'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='1.5'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          class='lucide lucide-arrow-left'
+          ><path d='m12 19-7-7 7-7'></path><path d='M19 12H5'></path></svg
+        >
+        Return
+      </a>
+    </nav>
+    <section>
+      {
+        country ? (
+          <div>
+            <img
+              src={country.flags.png}
+              transition:name={`flag ${country.cca3} img`}
+            />
+            {country.name.common}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )
+      }
+    </section>
+  </main>
+</Layout>

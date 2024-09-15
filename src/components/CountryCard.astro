@@ -1,0 +1,39 @@
+---
+interface Props {
+  country: Country
+}
+
+const { country } = Astro.props
+---
+
+<a
+  href={`/${country.cca3}`}
+  class='w-[300px] h-[400px] flex flex-col flex-grow rounded-xl border border-zinc-700'
+>
+  <img
+    class='rounded-t-xl w-full h-1/2 object-cover'
+    src={country.flags.png}
+    alt={`Flag of ${country.name.common}`}
+    loading='lazy'
+    transition:name={`flag ${country.cca3} img`}
+  />
+  <div class='p-10'>
+    <div class='flex flex-col'>
+      <strong class='text-xl font-bold mb-2'>
+        {country.name.common}
+      </strong>
+      <p>
+        <strong>Population:</strong>
+        {country.population.toLocaleString()}
+      </p>
+      <p>
+        <strong>Region:</strong>
+        {country.region}
+      </p>
+      <p>
+        <strong>Capital:</strong>
+        {country.capital?.join(', ') ?? 'N/A'}
+      </p>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --color-text: 207 26% 17%;
+    --color-background: 0 0% 98%;
+  }
+
+  :root.dark {
+    --color-text: 0 0% 100%;
+    --color-background: 207 26% 17%;
+  }
+}
+
+* {
+  color: hsl(var(--color-text));
+  background-color: hsl(var(--color-background));
+  transition: color 0.3s, background-color 0.3s;
+  font-family: "Nunito Sans", sans-serif;
+}

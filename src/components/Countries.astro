@@ -1,0 +1,19 @@
+---
+import CountryCard from './CountryCard.astro'
+
+const countries = await fetch('https://restcountries.com/v3.1/all').then(
+  (res) => res.json()
+)
+---
+
+<div
+  class='w-[800px] max-w-4xl flex flex-wrap justify-between items-center m-auto bg-skin-fill text-skin-base transition-colors duration-200 gap-10 mt-10'
+>
+  {
+    countries.length > 0 ? (
+      countries.map((country: Country) => <CountryCard country={country} />)
+    ) : (
+      <p>Loading countries...</p>
+    )
+  }
+</div>
